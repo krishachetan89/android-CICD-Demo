@@ -55,3 +55,25 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
 }
+
+
+def props = new Properties()
+file("../signing.properties").withInputStream { props.load(it) }
+
+android {
+    //...
+    signingConfigs {
+        release {
+            keyAlias props.getProperty('keyAlias')
+            keyPassword props.getProperty('keyPassword')
+            storeFile file(props.getProperty('storeFile'))
+            storePassword props.getProperty('storePassword')
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            //...
+        }
+    }
+}

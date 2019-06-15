@@ -36,6 +36,10 @@
         <activity android:name=".fragmentsdemo.FragmentExampleActivity"/>
         <activity android:name=".fragmentsdemo.FragmentExample2Activity"/>
         <activity android:name=".youtubedemo.YouTubeDemoActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="28ef568223553e4396b497fa041bc106fdb7efd5"
+            />
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

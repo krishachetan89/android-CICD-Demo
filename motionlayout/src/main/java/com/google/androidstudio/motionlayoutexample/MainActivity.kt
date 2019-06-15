@@ -12,7 +12,8 @@ import com.google.androidstudio.motionlayoutexample.viewpagerdemo.ViewPagerActiv
 import com.google.androidstudio.motionlayoutexample.viewpagerdemo.ViewPagerActivity2
 import com.google.androidstudio.motionlayoutexample.youtubedemo.YouTubeDemoActivity
 import kotlinx.android.synthetic.main.activity_main.*
-
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
         viewManager = LinearLayoutManager(this)
         viewAdapter = DemosAdapter(dataset)

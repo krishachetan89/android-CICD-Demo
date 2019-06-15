@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "37915231172",
+    "firebase_url": "https://android-demo-87352.firebaseio.com",
+    "project_id": "android-demo-87352",
+    "storage_bucket": "android-demo-87352.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37915231172:android:dd5729b290127be1",
+        "android_client_info": {
+          "package_name": "com.krishna.chetan.sampleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37915231172-qtnndk5jg26o6qt776s0801vnugp6ils.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbRaBgSaMYjs8Qid3vXe-CPBpN7VF_iIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37915231172-qtnndk5jg26o6qt776s0801vnugp6ils.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

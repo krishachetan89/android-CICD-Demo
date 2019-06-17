@@ -24,8 +24,8 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }} 
-  
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
   instrumentation-tests:
     <<: *defaults
     steps:
@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Store service account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-      - run: 
+      - run:
           name: Authorize to gcloud
           command: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json --project=${GOOGLE_PROJECT_ID}
       - run:
@@ -47,7 +47,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }} 
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
   deploy-internal:
     <<: *defaults
@@ -73,51 +73,19 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }} 
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
 workflows:
   version: 2
-
-  develop:
-    jobs:
-      - unit-tests
-
-  nighly:
-    triggers:
-      - schedule:
-          cron: "0 3 * * *"
-          filters:
-            branches:
-              only:
-                - develop
-    jobs:
-      - instrumentation-tests
-
   deploy-internal:
     jobs:
-      - unit-tests:
-          filters:
-            branches:
-              only:
-                - /internal.*/
-      - instrumentation-tests:
-          filters:
-            branches:
-              only:
-                - /internal.*/
+      - unit-tests
+      - instrumentation-tests
       - hold:
           type: approval
-          filters:
-            branches:
-              only:
-                - /internal.*/
           requires:
             - unit-tests
             - instrumentation-tests
       - deploy-internal:
-          filters:
-            branches:
-              only:
-                - /internal.*/
           requires:
             - hold

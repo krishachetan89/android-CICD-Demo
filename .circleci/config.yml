@@ -80,12 +80,12 @@ workflows:
   deploy-internal:
     jobs:
       - unit-tests
-      - instrumentation-tests
+      #- instrumentation-tests
       - hold:
           type: approval
           requires:
             - unit-tests
-            - instrumentation-tests
+            #- instrumentation-tests
       - beta :
           requires:
             - hold

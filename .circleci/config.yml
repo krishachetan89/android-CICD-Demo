@@ -86,9 +86,18 @@ workflows:
           requires:
             - unit-tests
             #- instrumentation-tests
-      - beta :
+      - deploy-internal:
           requires:
             - hold
-      - deploy-internal:
+  beta:
+    jobs:
+      - unit-tests
+      #- instrumentation-tests
+      - hold:
+          type: approval
+          requires:
+            - unit-tests
+            #- instrumentation-tests
+      - beta:
           requires:
             - hold

@@ -49,7 +49,7 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
-  deploy-internal:
+  deploy-playstore-internal:
     <<: *defaults
     steps:
       - checkout
@@ -74,7 +74,7 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-  deploy-Crashlytics:
+  deploy-crashlytics:
     <<: *defaults
     steps:
       - checkout
@@ -96,7 +96,7 @@ jobs:
 
 workflows:
   version: 2.1
-  deploy-internal:
+  deploy-playstore-internal:
     jobs:
       - unit-tests
       #- instrumentation-tests
@@ -105,10 +105,10 @@ workflows:
           requires:
             - unit-tests
             #- instrumentation-tests
-      - deploy-internal:
+      - deploy-playstore-internal:
           requires:
             - hold
-  beta:
+  deploy-crashlytics:
     jobs:
       - unit-tests
       #- instrumentation-tests
@@ -117,6 +117,6 @@ workflows:
           requires:
             - unit-tests
             #- instrumentation-tests
-      - beta:
+      - deploy-crashlytics:
           requires:
             - hold

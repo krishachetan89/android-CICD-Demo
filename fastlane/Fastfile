@@ -16,6 +16,10 @@ opt_out_usage
 
 default_platform(:android)
 platform :android do
+  before_all do
+      ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+      increment_version_code
+    end
   desc "Run the unit tests"
   lane :unit_tests do
     gradle(task: "test")
@@ -56,4 +60,10 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+  after_all do |lane|
+   # This block is called, only if the executed lane was successful
+       slack(
+         message: "Successfully deployed new App Update."
+      )
+    end
 end

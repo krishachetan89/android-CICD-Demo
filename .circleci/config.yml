@@ -7,6 +7,10 @@ defaults: &defaults
     JVM_OPTS: -Xmx3200m
 
 jobs:
+  decode_android_key: &decode_android_key
+    run:
+      name: Decode Android key store
+      command: echo $KEYSTORE | base64 -di | tee kc app/kc >/dev/null
   unit-tests:
     <<: *defaults
     steps:

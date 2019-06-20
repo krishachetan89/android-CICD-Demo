@@ -39,8 +39,7 @@ platform :android do
   end
   desc "Submit a new Beta Build to Crashlytics Beta"
     lane :beta do
-      gradle(task: "clean assembleDebug")
-      increment_build_number build_number: ENV["CIRCLE_BUILD_NUM"]
+      gradle(task: "clean assembleRelease")
       crashlytics
      end
 

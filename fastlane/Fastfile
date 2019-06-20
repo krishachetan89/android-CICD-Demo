@@ -66,4 +66,10 @@ platform :android do
          message: "Successfully deployed new App to crashlytics."
       )
     end
+   after_all do |assembleRelease|
+      # This block is called, only if the executed lane was successful
+          slack(
+            message: "Successfully deployed new App to play store."
+         )
+       end
 end

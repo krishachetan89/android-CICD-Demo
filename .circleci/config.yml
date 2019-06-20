@@ -1,8 +1,8 @@
-version: 2.0
+version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/android:api-28
+    - image: circleci/android:api-28-alpha
   environment:
     JVM_OPTS: -Xmx3200m
 
@@ -49,7 +49,7 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
-  deploy-playstore-internal:
+  deploy-internal:
     <<: *defaults
     steps:
       - checkout
@@ -87,7 +87,7 @@ jobs:
           name: Store the google play key
           command: echo $GOOGLE_PLAY_KEY > gplay_key.json
       - run:
-          name: Deploy the app to the internal track
+          name: Deploy the app to crashlytics for internal testing
           command: bundle exec fastlane beta
       - save_cache:
           paths:
@@ -95,19 +95,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
 workflows:
-  version: 2.0
-  deploy-playstore-internal:
-    jobs:
-      - unit-tests
-      #- instrumentation-tests
-      - hold:
-          type: approval
-          requires:
-            - unit-tests
-            #- instrumentation-tests
-      - deploy-playstore-internal:
-          requires:
-            - hold
+  version: 2
   deploy-crashlytics:
     jobs:
       - unit-tests
@@ -116,8 +104,10 @@ workflows:
           type: approval
           requires:
             - unit-tests
-            - instrumentation-tests
+            #- instrumentation-tests
+      - deploy-internal:
+          requires:
+            - hold
       - deploy-crashlytics:
           requires:
             - unit-tests
-            - instrumentation-tests

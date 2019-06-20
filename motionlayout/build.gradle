@@ -17,7 +17,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
-
+apply from: "$project.rootDir/ci/script-git-version.gradle"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
 

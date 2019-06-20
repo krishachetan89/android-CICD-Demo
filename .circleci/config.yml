@@ -1,4 +1,4 @@
-version: 2.1
+version: 2.0
 
 defaults: &defaults
   docker:
@@ -95,7 +95,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
 workflows:
-  version: 2.1
+  version: 2.0
   deploy-playstore-internal:
     jobs:
       - unit-tests

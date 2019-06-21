@@ -103,12 +103,12 @@ workflows:
   deploy-crashlytics-Google-play:
     jobs:
       - unit-tests
-      #- instrumentation-tests
+      - instrumentation-tests
       - hold:
           type: approval
           requires:
             - unit-tests
-            #- instrumentation-tests
+            - instrumentation-tests
       - deploy-internal:
           requires:
             - hold

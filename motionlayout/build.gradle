@@ -27,8 +27,8 @@ android {
         applicationId "com.krishna.chetan.sampleapp"
         minSdkVersion 18
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "android-cicd",
+  "private_key_id": "07ceb40a76e9fa2222e15d54011b4c53b8779c04",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCTzOd1UnTpF+Km\nUNjrpmFtm6Lnu2TuvBj5bcioWs7pBUspaGDjg9hDAGH4OMTNvUla1z/Bs3VPQ4w2\n2NC/ODmIUgjxyZsA58qUi6GtILMk0NECcCddVWTvopWFmto7Fgfrhm9mc4hOrNjF\nKIxQ3rrZbXEfabihDRc6Vl3xsK8MF6w81wxzjCQTZNaJxcp3qu+YsPUAZo1Izpv2\nSbT4kafgqX+WPp+iakQvAH6oA0zjkyUerF/FUE0DkoEhmDbKMoa1jBzZjObKBBEN\n1+M3RE4YWfs18khQWsgRDtvtg3EbZeXgWd6wN8XwGH81+uKdG9hEBAxct1vkO9IP\nZCGwlChzAgMBAAECggEALEDJOpUOQS5wI9kIIgKGoGFdtOGkdmCmX6Rx1Iqf8iAu\nIX9Jp0V2LpWCP+aLcoiO2p6hTdd0M9/nLxLa6a4ld74MRIzXFr3QJ4rpRSOJz+ef\n9Qlsl+L2HlQBTegQGGnfxDLTzwqfkOLq4plh7eLKckh0+vFWIQ6A2mw6o5+Bwe4t\n4WpxjfNZzhdWA7VfzcscLJOsYIV7OiUaLope7egjldvN24BOIjUtP6vBlITFYn8s\nJ99Muf3YIBHk9zeOLcZjz1yR4xAu4x22AT/qdUlybc4MRmyB0TBWrAElH84Iwr0s\nNwmVkqTPH3QAEgf9Jad+/julLfKxftnv3WZFSoEswQKBgQDPS0agbvwfN4fXftII\nbS2r5IUYloMfi+h/1ge/CU52Nbmp84zR4bpyNyDNGKf9HGerJqEiWY1lEXxCrbZl\ntSrOEuVgpgarbY01dqIDEGiuzBudfrOJmf/ofnKy7qsnrQliyHywm+nFfTMR+vM1\nNcs0tB6bej2jt6XBPrtehsfVwQKBgQC2hxbo2iuG5DyzwJcLbjJGajvUh/mSSQmQ\nt+0Wta6VlRr7btwUDV5cJ/ZTV8nDLn7QWqQ5t/GpikBlWulLKHmFxXJ8++NAlRIX\n78T4fKa5MqdZIw48Yl/Of0jMqUxuIhZc7iG0N8W/8dqpyMoszgoOidCdH49Fxw39\nkUWzIDdTMwKBgGieoUKPQQewSwrjorVGBOrgJpxGOl9NiUYbi0VLOSJH8zBnDwdO\nWX8Te6aHbyE7mMa0dFaVw9rifEhay9eBG91tg/7HTE5wt/fnq9TID01JDhbqv0oP\nQyzfxJuyAQfBOR91+BhaWB2oFoJYmS6du7UZwujNRRa/tRRWyNHoTCsBAoGAKtt1\nSZ9QcQ/OIPargIeTTm1LNw/mTa7QjCZjiN2H7J9iAn95NUweR80qTU9jlGyqYgmm\nXdcO6xwHGsVJ2dfbEMnXo/kQ1u0pnm0x9pZuHzYBjTBp+0ut6zJ/yW5G/+UJEzDm\nwQYHbJZBHXSD5BlMyzUYwovSfDPM2SjvEKwT0XkCgYAB84/s2UF+hBWrGbVQzwD/\nc0qmYRUgDj3Kiggx2ovfSPEs7d8HGlddf5i+q/HKzey+/mi1itTlZ1QMhapG9mTj\nnyDewVu75GW+U2nc6ytGDxPMAPXZkh4+Ai07pqUlyIc4AUdomUp/l0N8q9BMpF4S\njflFgFbzJrdMrGOUFh2zHw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "krishna-demo@android-cicd.iam.gserviceaccount.com",
+  "client_id": "114336719133873573012",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/krishna-demo%40android-cicd.iam.gserviceaccount.com"
+}

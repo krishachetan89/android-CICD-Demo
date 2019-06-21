@@ -71,7 +71,7 @@ platform :android do
        # This block is called, only if the executed lane was successful
            slack(
              message: "App successfully released!",
-             fail_on_error : true,
+             fail_on_error : true
              payload: {
                "Build Date" => Time.new.to_s,
                "Built by" => "CircleCI",

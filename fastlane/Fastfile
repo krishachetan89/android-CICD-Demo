@@ -64,12 +64,17 @@ platform :android do
    # This block is called, only if the executed lane was successful
        slack(
          message: "Successfully deployed new App to Crashlytics."
+         fail_on_error : true
       )
     end
     after_all do |instrumentation_tests|
        # This block is called, only if the executed lane was successful
            slack(
-             message: "Successfully deployed new App to Crashlytics."
-          )
-        end
+             message: "App successfully released!",
+             fail_on_error : true,
+             payload: {
+               "Build Date" => Time.new.to_s,
+               "Built by" => "CircleCI",
+             }
+           )
 end

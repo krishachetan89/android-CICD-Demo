@@ -16,19 +16,44 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
-### android test
+### android assemble_build
 ```
-fastlane android test
+fastlane android assemble_build
 ```
-Runs all the tests
-### android beta
+Assemble Build
+### android assemble_test_application
 ```
-fastlane android beta
+fastlane android assemble_test_application
 ```
-Submit a new Beta Build to Crashlytics Beta
-### android deploy
+Assemble Test Application
+### android assemble
 ```
-fastlane android deploy
+fastlane android assemble
+```
+Assemble Build and Test Application
+### android unit_tests
+```
+fastlane android unit_tests
+```
+Run unit tests
+### android instrumentation_tests
+```
+fastlane android instrumentation_tests
+```
+Run instrumentation tests
+### android instrumentation_tests_testlab
+```
+fastlane android instrumentation_tests_testlab
+```
+Run instrumentation tests in Firebase Test Lab
+### android deploy_to_crashlytics
+```
+fastlane android deploy_to_crashlytics
+```
+Submit a new Beta Build to Crashlytics
+### android deploy_to_play_store
+```
+fastlane android deploy_to_play_store
 ```
 Deploy a new version to the Google Play
 

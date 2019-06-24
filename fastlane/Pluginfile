@@ -5,3 +5,5 @@
 gem 'fastlane-plugin-versioning_android'
 gem 'fastlane-plugin-increment_version_code'
 gem 'fastlane-plugin-android_versioning'
+gem 'fastlane-plugin-automated_test_emulator_run'
+gem 'fastlane-plugin-run_tests_firebase_testlab'

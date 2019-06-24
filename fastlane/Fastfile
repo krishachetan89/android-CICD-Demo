@@ -5,67 +5,81 @@
 #
 #     https://docs.fastlane.tools/actions
 #
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
-opt_out_usage
 
 default_platform(:android)
+
 platform :android do
-  before_all do
-      ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
-      increment_version_code
+  before_all do |lane, options|
+    @build_type = "Debug"
+    if not options.empty?
+      @build_type = options["release"] ? "Release" : "Debug"
     end
-  desc "Run the unit tests"
-  lane :unit_tests do
-    gradle(task: "test")
   end
 
-  desc "Assemble a debug apk"
-  lane :assemble_debug do
-    gradle(task: "assembleDebug")
+  desc "Assemble Build"
+  lane :assemble_build do |options|
+    properties = {
+      "android.injected.signing.store.file" => "key-store.jks",
+      "android.injected.signing.store.password" => ENV['KEY_PASSWORD'],
+      "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+      "android.injected.signing.key.password" => ENV['STORE_PASSWORD'],
+    } if @build_type == "Release"
+
+    gradle(task: "assemble", build_type: @build_type, properties: properties)
   end
 
-  desc "Assemble an android test apk"
-  lane :assemble_android_test do
-    gradle(task: "assembleDebugAndroidTest")
+  desc "Assemble Test Application"
+  lane :assemble_test_application do |options|
+    gradle(task: "assemble", build_type: "#{@build_type}AndroidTest")
   end
 
-  desc "Run the instrumentation tests in the Firebase test lab"
+  desc "Assemble Build and Test Application"
+  lane :assemble do |options|
+    assemble_build options
+    assemble_test_application options
+  end
+
+  desc "Run unit tests"
+  lane :unit_tests do |options|
+    gradle(task: "test", build_type: @build_type)
+  end
+
+  desc "Run instrumentation tests"
   lane :instrumentation_tests do
-    gradle(task: "assembleDebugAndroidTest")
-    gradle(task: "assembleDebug")
-    sh("../ci/run_firebase_tests.sh")
+    automated_test_emulator_run(
+      AVD_setup_path: "fastlane/AVD_setup.json",
+      AVD_recreate_new: false,
+      AVD_clean_after: false,
+      gradle_task: "connectedDebugAndroidTest")
   end
-  desc "Submit a new Beta Build to Crashlytics Beta"
-    lane :beta do
-      gradle(task: "clean assembleDebug")
-      crashlytics
-     end
 
-  desc "Deploy the app to the internal track"
-  lane :deploy_internal do
-    gradle(task: "bundleRelease")
-    supply(
-      track: 'internal',
-      aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH].to_s
-    )
-    end
+  desc "Run instrumentation tests in Firebase Test Lab"
+  lane :instrumentation_tests_testlab do
+    assemble
+    run_tests_firebase_testlab(
+      project_id: "project-id",
+      devices: [
+        {
+          model: "Nexus6P",
+          version: "27"
+        }
+      ],
+      delete_firebase_files: true)
+  end
+
+  desc "Submit a new Beta Build to Crashlytics"
+  lane :deploy_to_crashlytics do
+    assemble_build
+    crashlytics
+  end
+
   desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
+  lane :deploy_to_play_store do
+    @build_type = "Release"
+    assemble_build
     upload_to_play_store
   end
-  after_all do |beta|
-   # This block is called, only if the executed lane was successful
-       slack(
-
-         message: "Successfully deployed new App to Crashlytics.",
-         fail_on_error
-      )
-    end
 end

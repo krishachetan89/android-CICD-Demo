@@ -36,11 +36,11 @@ platform :android do
   end
 
   desc "Run the instrumentation tests in the Firebase test lab"
-  lane :instrumentation_tests do
-    gradle(task: "assembleDebugAndroidTest")
-    gradle(task: "assembleDebug")
-    sh("../ci/run_firebase_tests.sh")
-  end
+   lane :instrumentation_tests do
+      assemble_debug
+      assemble_android_test
+      sh("../ci/run_firebase_tests.sh")
+    end
   desc "Submit a new Beta Build to Crashlytics Beta"
     lane :beta do
       gradle(task: "clean assembleDebug")
@@ -60,7 +60,7 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
-  after_all do |beta|
+  after_all do |deploy_internal|
    # This block is called, only if the executed lane was successful
        slack(
          message: "Successfully deployed new App Crashlytics."

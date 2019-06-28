@@ -20,14 +20,22 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
 
-
+static def getBuildVersion() {
+    def version = 123
+    def buildNumber = System.getenv("CIRCLE_BUILD_NUM")
+    if (buildNumber != null) {
+        version += buildNumber
+    }
+    println("VersionCode: " + version)
+    return version
+}
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.krishna.chetan.sampleapp"
         minSdkVersion 18
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 3
+        versionCode getBuildVersion() as int
         versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -89,7 +89,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - internal
     jobs:
       - instrumentation-tests
 

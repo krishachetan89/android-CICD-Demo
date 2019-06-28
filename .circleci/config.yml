@@ -94,11 +94,6 @@ jobs:
 
 workflows:
   version: 2
-
-  develop:
-    jobs:
-      - unit-tests
-
   nighly:
     triggers:
       - schedule:
@@ -109,6 +104,16 @@ workflows:
                 - master
     jobs:
       - instrumentation-tests
+  deploy-crashlytics:
+    jobs:
+      - unit-tests
+      - hold:
+          type: approval
+          requires:
+            - unit-tests
+      - deploy-crashlytics:
+          requires:
+            - hold
 
   deploy-internal:
     jobs:
@@ -138,6 +143,3 @@ workflows:
                 - /internal.*/
           requires:
             - hold
-      - deploy-crashlytics:
-          requires:
-            - unit-tests

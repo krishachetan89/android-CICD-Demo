@@ -1,10 +1,12 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
   docker:
     - image: circleci/android:api-28
   environment:
     JVM_OPTS: -Xmx3200m
+orbs:
+  slack: circleci/slack@3.2.0
 
 jobs:
   unit-tests:

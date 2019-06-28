@@ -113,13 +113,9 @@ workflows:
             branches:
               only:
                 - /internal.*/
-      - hold:
-          type: approval
-          requires:
-            - unit-tests
       - deploy-crashlytics:
           requires:
-            - hold
+            - unit-tests
 
   deploy-internal:
     jobs:
@@ -141,7 +137,7 @@ workflows:
                 - /internal.*/
           requires:
             - unit-tests
-            #- instrumentation-tests
+            - instrumentation-tests
       - deploy-internal:
           filters:
             branches:

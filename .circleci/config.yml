@@ -74,7 +74,7 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-    deploy-crashlytics:
+  deploy-crashlytics:
       <<: *defaults
       steps:
         - checkout
@@ -106,7 +106,11 @@ workflows:
       - instrumentation-tests
   deploy-crashlytics:
     jobs:
-      - unit-tests
+      - unit-tests:
+          filters:
+            branches:
+              only:
+                - /internal.*/
       - hold:
           type: approval
           requires:

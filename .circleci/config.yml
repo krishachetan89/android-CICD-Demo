@@ -59,15 +59,6 @@ jobs:
           name: Install fastlane
           command: bundle install
       - run:
-          name: Store the google play key
-          command: echo $GOOGLE_PLAY_KEY > gplay_key.json
-      - run:
-          name: Init fastlane supply
-          command: bundle exec fastlane supply init
-      - run:
-          name: Download ci's data
-          command: ./ci/download_ci_data.sh
-      - run:
           name: Deploy the app to the internal track
           command: bundle exec fastlane deploy_internal
       - save_cache:
@@ -89,7 +80,7 @@ workflows:
           filters:
             branches:
               only:
-                - internal
+                - master
     jobs:
       - instrumentation-tests
 
@@ -113,7 +104,7 @@ workflows:
                 - /internal.*/
           requires:
             - unit-tests
-            - instrumentation-tests
+            #- instrumentation-tests
       - deploy-internal:
           filters:
             branches:
@@ -121,3 +112,6 @@ workflows:
                 - /internal.*/
           requires:
             - hold
+      - deploy-crashlytics:
+          requires:
+            - unit-tests

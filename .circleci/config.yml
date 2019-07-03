@@ -8,6 +8,7 @@ defaults: &defaults
 orbs:
   slack: circleci/slack@3.2.0
 
+
 jobs:
   unit-tests:
     <<: *defaults
@@ -34,7 +35,7 @@ jobs:
       - slack/status:
           #mentions: "USERID1,USERID2" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           fail_only: false # Optional: if set to `true` then only failure messages will occur.
-          webhook: "webhook" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
+          webhook: https://hooks.slack.com/services/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 # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
           #only_for_branch: "" # Optional: If set, a specific branch for which status updates will be sent. In this case, only for pushes to master branch.
 
   instrumentation-tests:

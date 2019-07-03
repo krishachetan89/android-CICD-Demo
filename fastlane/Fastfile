@@ -60,6 +60,17 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+  desc "Run espresso tests on docker images"
+    lane :espresso_tests do
+      run_dockerized_task(
+        container_name: "espresso_container",
+        docker_image: "joesss/mango-docker:latest",
+        container_timeout: 120,
+        android_task: "./gradlew connectedAndroidTest",
+        post_actions: "adb logcat -d > logcat.txt",
+        pull_latest_image: true
+      )
+    end
   after_all do |deploy_internal|
    # This block is called, only if the executed lane was successful
        slack(

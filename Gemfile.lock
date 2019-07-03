@@ -14,6 +14,9 @@ GEM
     declarative (0.0.10)
     declarative-option (0.1.0)
     digest-crc (0.4.1)
+    docker-api (1.34.2)
+      excon (>= 0.47.0)
+      multi_json
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.2)
@@ -67,6 +70,8 @@ GEM
     fastlane-plugin-android_versioning (0.5.1)
     fastlane-plugin-automated_test_emulator_run (1.6.0)
     fastlane-plugin-increment_version_code (0.4.3)
+    fastlane-plugin-mango (1.1.6)
+      docker-api
     fastlane-plugin-run_tests_firebase_testlab (0.3.1)
     fastlane-plugin-versioning_android (0.1.0)
     gh_inspector (1.1.3)
@@ -162,6 +167,7 @@ DEPENDENCIES
   fastlane-plugin-android_versioning
   fastlane-plugin-automated_test_emulator_run
   fastlane-plugin-increment_version_code
+  fastlane-plugin-mango
   fastlane-plugin-run_tests_firebase_testlab
   fastlane-plugin-versioning_android
 

@@ -134,6 +134,8 @@ workflows:
             #- instrumentation-tests
       - slack/approval-notification:
           message: Pending approval
+          requires:
+            - unit-tests
       - deploy-crashlytics:
           filters:
             branches:

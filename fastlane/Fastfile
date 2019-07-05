@@ -74,7 +74,7 @@ platform :android do
   after_all do |deploy_internal|
    # This block is called, only if the executed lane was successful
        slack(
-         message: "Successfully deployed new App to Crashlytics. Please download from crashlytics beta"
+         message: "Successfully deployed new App to Crashlytics. Please download from crashlytic beta"
       )
     end
 end

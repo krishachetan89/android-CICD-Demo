@@ -133,7 +133,9 @@ workflows:
             - unit-tests
             #- instrumentation-tests
       - slack/approval-notification:
-          message: Pending approval
+          message: The workflow to deploy to playstore is Pending approval
+          requires:
+            - unit-tests
       - deploy-crashlytics:
           filters:
             branches:

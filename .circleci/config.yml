@@ -120,7 +120,7 @@ workflows:
                 - master
     jobs:
       - instrumentation-tests
-  deploy-crashlytics-internal-testing:
+  deploy-crashlytics:
     jobs:
       - unit-tests:
           filters:
@@ -140,14 +140,10 @@ workflows:
                 - /internal.*/
           requires:
             - unit-tests
-            - instrumentation-tests
-      - deploy-internal:
-          filters:
-            branches:
-              only:
-                - /internal.*/
+            #- instrumentation-tests
+  deploy-internal:
           requires:
-            - hold
+            - deploy-crashlytics
   deploy-internal-playstore:
     jobs:
       - unit-tests:

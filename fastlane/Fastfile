@@ -1,5 +1,3 @@
-Fastfile backup
-
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -13,7 +11,7 @@ Fastfile backup
 #
 
 # Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+update_fastlane
 opt_out_usage
 
 default_platform(:android)
@@ -38,11 +36,11 @@ platform :android do
   end
 
   desc "Run the instrumentation tests in the Firebase test lab"
-  lane :instrumentation_tests do
-    gradle(task: "assembleDebugAndroidTest")
-    gradle(task: "assembleDebug")
-    sh("../ci/run_firebase_tests.sh")
-  end
+   lane :instrumentation_tests do
+      assemble_debug
+      assemble_android_test
+      sh("../ci/run_firebase_tests.sh")
+    end
   desc "Submit a new Beta Build to Crashlytics Beta"
     lane :beta do
       gradle(task: "clean assembleDebug")
@@ -62,13 +60,21 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
-  after_all do |beta|
+  desc "Run espresso tests on docker images"
+    lane :espresso_tests do
+      run_dockerized_task(
+        container_name: "espresso_container",
+        docker_image: "joesss/mango-docker:latest",
+        container_timeout: 120,
+        android_task: "./gradlew connectedAndroidTest",
+        post_actions: "adb logcat -d > logcat.txt",
+        pull_latest_image: true
+      )
+    end
+  after_all do |deploy_internal|
    # This block is called, only if the executed lane was successful
        slack(
-         message: "Successfully deployed new App to Crashlytics."
+         message: "Successfully deployed new App Crashlytics."
       )
     end
 end
-
-
-

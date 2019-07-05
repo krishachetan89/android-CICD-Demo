@@ -54,6 +54,13 @@ jobs:
           command: bundle exec fastlane espresso_tests
       - store_artifacts:
           path: app/build/reports
+      - run:
+          name: Install jFrog CLI
+          command: curl -fL https://getcli.jfrog.io | sh
+      - run:
+          name: Push to Artifactory
+          command: |
+                  ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
       - save_cache:
           paths:
             - ~/.gradle

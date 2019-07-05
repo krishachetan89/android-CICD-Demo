@@ -39,7 +39,7 @@ class DemoActivity : AppCompatActivity() {
             val icon = findViewById<ImageView>(R.id.icon)
             icon?.clipToOutline = true
         }
-
+            //adding some code
         val debugMode = if (intent.getBooleanExtra("showPaths", false)) {
             MotionLayout.DEBUG_SHOW_PATH
         } else {

@@ -136,7 +136,7 @@ workflows:
             - unit-tests
             #- instrumentation-tests
       - slack/approval-notification:
-          message: Your unit tests have passed, Please approve workflow to deploy to playstore
+          message: Your unit tests have passeed, Please approve workflow to deploy to playstore
           requires:
             - unit-tests
       - deploy-crashlytics:

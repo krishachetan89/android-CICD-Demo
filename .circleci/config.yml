@@ -120,42 +120,6 @@ workflows:
                 - master
     jobs:
       - instrumentation-tests
-  deploy-crashlytics-Google-play:
-    jobs:
-      - unit-tests
-          filters:
-            branches:
-              only:
-                - /internal.*/
-      - instrumentation-tests
-          filters:
-            branches:
-              only:
-                - /internal.*/
-      - hold:
-          type: approval
-            filters:
-              branches:
-                only:
-                  - /internal.*/
-          requires:
-            - unit-tests
-            #- instrumentation-tests
-      - deploy-internal:
-          filters:
-            branches:
-              only:
-                - /internal.*/
-          requires:
-              - hold
-      - deploy-crashlytics:
-          filters:
-            branches:
-              only:
-                - /internal.*/
-          requires:
-              - unit-tests
-
   deploy-crashlytics:
     jobs:
       - unit-tests:
@@ -177,6 +141,13 @@ workflows:
           requires:
             - unit-tests
             #- instrumentation-tests
+      - deploy-crashlytics:
+          filters:
+            branches:
+              only:
+                - /internal.*/
+          requires:
+            - unit-tests
       - deploy-internal:
           filters:
             branches:

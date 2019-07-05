@@ -24,7 +24,7 @@ def props = new Properties()
 file("../signing.properties").withInputStream { props.load(it) }
 
 static def getBuildVersion() {
-    def version = 123
+    def version = 145
     def buildNumber = System.getenv("CIRCLE_BUILD_NUM")
     if (buildNumber != null) {
         version += buildNumber

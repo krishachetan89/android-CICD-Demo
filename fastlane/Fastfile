@@ -35,12 +35,12 @@ platform :android do
     gradle(task: "assembleDebugAndroidTest")
   end
 
-  desc "Run the instrumentation tests in the Firebase test lab"
-   lane :instrumentation_tests do
-      assemble_debug
-      assemble_android_test
-      sh("../ci/run_firebase_tests.sh")
-    end
+ desc "Run the instrumentation tests in the Firebase test lab"
+  lane :instrumentation_tests do
+    assemble_debug
+    assemble_android_test
+    sh("../ci/run_firebase_tests.sh")
+  end
   desc "Submit a new Beta Build to Crashlytics Beta"
     lane :beta do
       gradle(task: "clean assembleDebug")

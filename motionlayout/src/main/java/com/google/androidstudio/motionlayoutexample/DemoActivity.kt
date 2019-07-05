@@ -49,6 +49,7 @@ class DemoActivity : AppCompatActivity() {
     }
 
     fun changeState(v: View?) {
+        throw RuntimeException("This is a crash");
         val motionLayout = container as? MotionLayout ?: return
         if (motionLayout.progress > 0.5f) {
             motionLayout.transitionToStart()

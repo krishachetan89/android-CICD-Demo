@@ -134,7 +134,7 @@ workflows:
                 - /internal.*/
           requires:
             - unit-tests
-            #- instrumentation-tests
+            - instrumentation-tests
       - slack/approval-notification:
           message: The workflow to deploy to playstore is Pending approval
           requires:

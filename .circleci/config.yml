@@ -136,7 +136,9 @@ workflows:
                 - /internal.*/
       - slack/approval-notification:
           message: Pending approval
-          webhook: webhook
+          webhook:https://hooks.slack.com/services/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
+            requires:
+              - unit-tests
       - hold:
           type: approval
           filters:

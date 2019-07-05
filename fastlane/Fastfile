@@ -1,3 +1,5 @@
+Fastfile backup
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -11,13 +13,13 @@
 #
 
 # Uncomment the line if you want fastlane to automatically update itself
-#update_fastlane
+# update_fastlane
 opt_out_usage
 
 default_platform(:android)
 platform :android do
   before_all do
-      ENV["SLACK_WEBHOOK"] = "https://hooks.slack.com/services/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"
+      ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
       increment_version_code
     end
   desc "Run the unit tests"
@@ -36,19 +38,11 @@ platform :android do
   end
 
   desc "Run the instrumentation tests in the Firebase test lab"
-   lane :instrumentation_tests do
-     assemble_android_test
-     assemble_debug
-       run_tests_firebase_testlab(
-         project_id: "android-demo-87352",
-            devices: [
-              {
-                model: "Nexus6P",
-                version: "27"
-              }
-            ],
-            delete_firebase_files: true)
-        end
+  lane :instrumentation_tests do
+    gradle(task: "assembleDebugAndroidTest")
+    gradle(task: "assembleDebug")
+    sh("../ci/run_firebase_tests.sh")
+  end
   desc "Submit a new Beta Build to Crashlytics Beta"
     lane :beta do
       gradle(task: "clean assembleDebug")
@@ -68,21 +62,13 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
-  desc "Run espresso tests on docker images"
-    lane :espresso_tests do
-      run_dockerized_task(
-        container_name: "espresso_container",
-        docker_image: "joesss/mango-docker:latest",
-        container_timeout: 120,
-        android_task: "./gradlew connectedAndroidTest",
-        post_actions: "adb logcat -d > logcat.txt",
-        pull_latest_image: true
+  after_all do |beta|
+   # This block is called, only if the executed lane was successful
+       slack(
+         message: "Successfully deployed new App Crashlytics."
       )
     end
-    after_all do |beta|
-       # This block is called, only if the executed lane was successful
-           slack(
-             message: "Successfully deployed new App to Crashlytics."
-          )
-    end
 end
+
+
+

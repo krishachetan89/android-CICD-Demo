@@ -52,15 +52,15 @@ instrumentation-tests:
     - run:
         name: Run the instrumentation tests in Firebase test lab
         command: bundle exec fastlane instrumentation_tests
-      - store_artifacts:
+    - store_artifacts:
           path: app/build/reports
-      - store_artifacts:
+    - store_artifacts:
               path: app/build/outputs/apk/
               destination: /apk/
-      - store_artifacts:
+    - store_artifacts:
               path: app/build/outputs/mapping/
               destination: /mapping/
-      - save_cache:
+    - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}

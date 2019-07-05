@@ -134,11 +134,6 @@ workflows:
             branches:
               only:
                 - /internal.*/
-      - slack/approval-notification:
-          message: Pending approval
-          webhook:https://hooks.slack.com/services/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
-            requires:
-              - unit-tests
       - hold:
           type: approval
           filters:
@@ -148,6 +143,9 @@ workflows:
           requires:
             - unit-tests
             #- instrumentation-tests
+      - slack/approval-notification:
+          message: Pending approval
+          webhook:https://hooks.slack.com/services/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
       - deploy-crashlytics:
           filters:
             branches:

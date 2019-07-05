@@ -141,9 +141,13 @@ workflows:
           requires:
             - unit-tests
             #- instrumentation-tests
-  deploy-internal:
+      - deploy-internal:
+          filters:
+            branches:
+              only:
+                - /internal.*/
           requires:
-            - deploy-crashlytics
+            - hold
   deploy-internal-playstore:
     jobs:
       - unit-tests:

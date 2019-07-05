@@ -145,7 +145,6 @@ workflows:
             #- instrumentation-tests
       - slack/approval-notification:
           message: Pending approval
-          webhook:'${SLACK_WEBHOOK}'
       - deploy-crashlytics:
           filters:
             branches:

@@ -20,6 +20,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
 
+def props = new Properties()
+file("../signing.properties").withInputStream { props.load(it) }
+
 static def getBuildVersion() {
     def version = 123
     def buildNumber = System.getenv("CIRCLE_BUILD_NUM")
@@ -36,11 +39,20 @@ android {
         minSdkVersion 18
         targetSdkVersion rootProject.targetSdkVersion
         versionCode getBuildVersion() as int
-        versionName "3.0"
+        versionName "4.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            keyAlias props.getProperty('keyAlias')
+            keyPassword props.getProperty('keyPassword')
+            storeFile file(props.getProperty('storeFile'))
+            storePassword props.getProperty('storePassword')
+        }
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -61,26 +73,4 @@ dependencies {
     testImplementation "junit:junit:$rootProject.junitVersion"
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
-}
-
-
-def props = new Properties()
-file("../signing.properties").withInputStream { props.load(it) }
-
-android {
-    //...
-    signingConfigs {
-        release {
-            keyAlias props.getProperty('keyAlias')
-            keyPassword props.getProperty('keyPassword')
-            storeFile file(props.getProperty('storeFile'))
-            storePassword props.getProperty('storePassword')
-        }
-    }
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            //...
-        }
-    }
 }

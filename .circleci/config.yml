@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/android:api-28
+    - image: circleci/android:api-28-alpha
   environment:
     JVM_OPTS: -Xmx3200m
 
@@ -99,18 +99,18 @@ workflows:
           filters:
             branches:
               only:
-                - /internal.*/
+                - 2.1
       - instrumentation-tests:
           filters:
             branches:
               only:
-                - /internal.*/
+                - 2.1
       - hold:
           type: approval
           filters:
             branches:
               only:
-                - /internal.*/
+                - 2.1
           requires:
             - unit-tests
             - instrumentation-tests
@@ -118,6 +118,6 @@ workflows:
           filters:
             branches:
               only:
-                - /internal.*/
+                - 2.1
           requires:
             - hold
